@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="splendor" ng-controller="MainCtrl">
+<head>
+  <base href="/" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <title ng-bind="page.title">Splendor</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="<%= manifest['app.css'] %>"/>
+</head>
+
+<body>
+  <div ng-controller="NavbarCtrl" ng-include="'partials/navbar.html'"></div>
+  <div class="container" ng-view></div>
+
+  <script type="text/javascript" src="<%= manifest['dependencies.js'] %>"></script>
+  <script type="text/javascript" src="<%= manifest['app.js'] %>"></script>
+</body>
+</html>

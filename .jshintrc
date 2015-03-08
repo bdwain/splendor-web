@@ -1,0 +1,31 @@
+{
+    "bitwise": true,
+    "browser": true,
+    "camelcase": false,
+    "curly": true,
+    "eqeqeq": true,
+    "es3": true,
+    "forin": true,
+    "freeze": true,
+    "immed": true,
+    "indent": 4,
+    "latedef": true,
+    "maxparams": 20,
+    "newcap": false,
+    "noarg": true,
+    "noempty": true,
+    "nonbsp": true,
+    "nonew": true,
+    "quotmark": "single",
+    "undef": true,
+    "unused": true,
+    "strict": false,
+    "trailing": true,
+    "globals": {
+      "angular": false,
+      "_": false,
+      "console": false,
+      "moment": false,
+      "JSON": false
+    }
+}
