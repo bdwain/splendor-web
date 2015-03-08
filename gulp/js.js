@@ -7,7 +7,6 @@ var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
 var stripDebug = require('gulp-strip-debug');
-var runSequence = require('run-sequence');
 var sourcemaps = require('gulp-sourcemaps');
 var wrap = require('gulp-wrap');
 var ngAnnotate = require('gulp-ng-annotate');
@@ -17,13 +16,13 @@ var srcFiles = ['app/js/**/module.js', 'app/js/**/*.js'];
 gulp.task('js:verify', ['js:test', 'js:hint']);
 
 gulp.task('js:build:debug', ['js:build:src:debug', 'js:build:deps:debug']);
-gulp.task('js:build:release', ['js:verify', 'js:build:src:release', 'js:build:deps:release']);
+gulp.task('js:build:release', ['js:build:src:release', 'js:build:deps:release']);
 
-gulp.task('js:watch', ['js:build:debug', 'js:watch:build', 'js:watch:test']);
-gulp.task('js:watch:debug', ['js:build:debug', 'js:watch:build', 'js:watch:test:debug']);
 gulp.task('js:watch:build', ['js:build:debug'], function () {
   gulp.watch(srcFiles, ['js:build:src:debug']);
 });
+gulp.task('js:watch', ['js:build:debug', 'js:watch:build', 'js:watch:test']);
+gulp.task('js:watch:debug', ['js:build:debug', 'js:watch:build', 'js:watch:test:debug']);
 
 gulp.task('js:build:deps:debug', function () {
   var excluded = ['!**/*lodash.min*', '!**/*lodash.underscore*', '!**/*ui-bootstrap-tpls*', '!' + global.bower_path + 'moment/min/*locales*'];
@@ -90,13 +89,6 @@ gulp.task('js:test', function () {
     });
 });
 
-gulp.task('js:hint', function () {
-  return gulp.src(srcFiles)
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'));
-});
-
 gulp.task('js:watch:test', function () {
   return gulp.src('blah') //need a fake file to get it to use the files from karma.conf.js
     .pipe(karma({
@@ -114,3 +106,9 @@ gulp.task('js:watch:test:debug', function () {
     }));
 });
 
+gulp.task('js:hint', function () {
+  return gulp.src(srcFiles)
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('fail'));
+});

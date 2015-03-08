@@ -27,5 +27,5 @@ gulp.task('test', 'Run all javascript tests', ['js:test']);
 gulp.task('verify', 'Run all test and verification tasks', ['js:verify']);
 
 gulp.task('package', 'Run all tests and generate a zip file that can be deployed', function(cb){
-  runSequence('clean', 'package:zip', cb); //so clean runs before package
+  runSequence('clean', ['js:test', 'package:zip'], cb); //so clean runs before package
 });

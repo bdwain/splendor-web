@@ -37,7 +37,7 @@ gulp.task('package:build:index', ['package:rev'], function(){
 });
 
 gulp.task('package:zip', ['package:copy:img', 'package:build:index'], function(){  
-  return gulp.src(global.dist_path + '**/*', '!' + global.dist_path + 'asset_manifest.json')
+  return gulp.src([global.dist_path + '**/*', '!' + global.dist_path + 'asset_manifest.json'])
     .pipe(zip('archive.zip'))
     .pipe(gulp.dest(global.dist_path));
 });
