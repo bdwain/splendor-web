@@ -1,11 +1,11 @@
 'use strict';
 
 describe('GlobalService', function () {
+  beforeEach(module('splendor.main'));
+  
   var GlobalService, $location;
 
   beforeEach(function () {
-    module('splendor.services');
-
     inject(function (_GlobalService_, _$location_) {
       GlobalService = _GlobalService_;
       $location = _$location_;

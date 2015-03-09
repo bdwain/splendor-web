@@ -1,8 +1,12 @@
-angular.module('splendor.controllers').controller('NavbarCtrl',
+angular.module('splendor.navbar').controller('NavbarCtrl',
   function ($scope, $location, AuthenticationService) {
     $scope.init = function(){
-      //placeholder
+      $scope.isLoggedIn = AuthenticationService.isLoggedIn();
     };
+
+    $scope.$on('$locationChangeSuccess', function(){
+      $scope.isLoggedIn = AuthenticationService.isLoggedIn();
+    });
 
     $scope.logout = function () {
       AuthenticationService.logout();

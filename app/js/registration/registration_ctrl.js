@@ -1,8 +1,8 @@
-angular.module('splendor.controllers').controller('RegistrationCtrl', 
+angular.module('splendor.registration').controller('RegistrationCtrl', 
   function($scope, RegistrationService, AuthenticationService, $location) {
     $scope.init = function(){      
       if(AuthenticationService.isLoggedIn()){
-        $location.path('/home');
+        $location.path('/');
         return;
       }
 

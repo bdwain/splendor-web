@@ -1,7 +1,7 @@
 'use strict';
 
 describe('RegistrationCtrl', function () {
-  beforeEach(module('splendor.controllers'));
+  beforeEach(module('splendor.registration'));
   beforeEach(module('splendor.test.mocks'));
 
   var $scope, RegistrationService, AuthenticationService, $location;
@@ -29,11 +29,11 @@ describe('RegistrationCtrl', function () {
       expect($scope.page.title).toBe('Sign Up');
     });
 
-    it('should redirect to /home if logged in', function () {
+    it('should redirect to / if logged in', function () {
       $location.path('/foo');
       AuthenticationService.loggedIn = true;
       $scope.init();
-      expect($location.path()).toBe('/home');
+      expect($location.path()).toBe('/');
     });
 
     it('should not redirect if not logged in', function () {

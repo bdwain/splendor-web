@@ -1,7 +1,7 @@
 'use strict';
 
 describe('LoginCtrl', function () {
-  beforeEach(module('splendor.controllers'));
+  beforeEach(module('splendor.authentication'));
   beforeEach(module('splendor.test.mocks'));
 
   var $scope, AuthenticationService, $location;
@@ -23,11 +23,11 @@ describe('LoginCtrl', function () {
   });
 
   describe('init', function(){
-    it('should redirect to /home if logged in', function () {
+    it('should redirect to / if logged in', function () {
       $location.path('/foo');
       AuthenticationService.loggedIn = true;
       $scope.init();
-      expect($location.path()).toBe('/home');
+      expect($location.path()).toBe('/');
     });
 
     it('should not redirect if not logged in', function () {
@@ -55,12 +55,12 @@ describe('LoginCtrl', function () {
       expect(AuthenticationService.loginData).toBe($scope.loginData);
     });
 
-    it('should set the path to /home when login succeeds', function () {
+    it('should set the path to / when login succeeds', function () {
       AuthenticationService.loginSuccess = true;
       $scope.loginData = {email: 'blah', password: 'meh'};
       $scope.login();
       $scope.$digest();
-      expect($location.path()).toBe('/home');
+      expect($location.path()).toBe('/');
     });
   });
 });

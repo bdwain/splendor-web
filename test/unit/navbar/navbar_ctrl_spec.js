@@ -1,23 +1,23 @@
 'use strict';
 
-describe('MainCtrl', function () {
-  beforeEach(module('splendor.controllers'));
+describe('NavbarCtrl', function () {
+  beforeEach(module('splendor.navbar'));
   beforeEach(module('splendor.test.mocks'));
-
-  var $scope, AuthenticationService, $location, $rootScope;
+  
+  var $scope, $rootScope, AuthenticationService, $location, $q;
 
   beforeEach(function () {
     module(function ($provide, MockAuthenticationServiceProvider) {
       $provide.provider('AuthenticationService', MockAuthenticationServiceProvider);
     });
 
-    inject(function (_$rootScope_, $controller, _AuthenticationService_, _$location_) {
+    inject(function (_$rootScope_, CtrlTestRootScope, $controller, _AuthenticationService_, _$location_) {
+      $scope = CtrlTestRootScope.$new();
       $rootScope = _$rootScope_;
-      $scope = $rootScope.$new();
       AuthenticationService = _AuthenticationService_;
       $location = _$location_;
 
-      $controller('MainCtrl', {
+      $controller('NavbarCtrl', {
         '$scope': $scope
       });
     });
@@ -38,20 +38,32 @@ describe('MainCtrl', function () {
     checkAuthenticationBehavior(function(){
       $scope.init();
     });
-
-    it('should set $scope.page to have a title', function () {
-      AuthenticationService.loggedIn = true;
-      $scope.init();
-      var expectedPage = {
-        title: 'Splendor'
-      };
-      expect($scope.page).toEqual(expectedPage);
-    });
   });
 
   describe('on $locationChangeSuccess', function(){
     checkAuthenticationBehavior(function(){
       $rootScope.$broadcast('$locationChangeSuccess');
+    });
+  });
+
+  describe('logout', function () {
+    it('should call AuthenticationService.logout in logout', function () {
+      $scope.logout();
+      expect(AuthenticationService.logoutCtr).toBe(1);
+    });
+
+    it('should set the path to /login immediately', function () {
+      $location.path('/foo');
+      $scope.logout();
+      expect($location.path()).toBe('/login');
+    });
+  });
+
+  describe('getActiveTabCss', function(){
+    it('should return active if and only if the current location.path matches the passed in path', function(){
+      $location.path('/foo');
+      expect($scope.getActiveTabCss('foo')).toBe('active');
+      expect($scope.getActiveTabCss('bar')).toBe('');
     });
   });
 });

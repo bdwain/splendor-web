@@ -1,8 +1,8 @@
-angular.module('splendor.controllers').controller('LoginCtrl',
+angular.module('splendor.authentication').controller('LoginCtrl',
   function ($scope, AuthenticationService, $location) {
     $scope.init = function () {
       if (AuthenticationService.isLoggedIn()) {
-        $location.path('/home');
+        $location.path('/');
         return;
       }
       
@@ -20,7 +20,7 @@ angular.module('splendor.controllers').controller('LoginCtrl',
     $scope.login = function () {
       AuthenticationService.login($scope.loginData).then(
         function () {
-          $location.path('/home');
+          $location.path('/');
         },
         function (err) {
           $scope.errorMessage = err;

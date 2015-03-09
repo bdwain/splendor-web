@@ -1,7 +1,7 @@
 'use strict';
 
 describe('AuthenticationService', function () {
-  beforeEach(module('splendor.services'));
+  beforeEach(module('splendor.authentication'));
 
   var AuthenticationService, httpBackend, apiUrl, authResponse, loginData, authTokenIdentifier, currentUserIdentifier;
 
@@ -141,7 +141,22 @@ describe('AuthenticationService', function () {
       httpBackend.flush();
     });
 
-    describe('on success', function () {
+    describe('before the request completes', function(){
+      it('shouldn\' delete the values from local storage', function(){
+        window.localStorage.setItem(authTokenIdentifier, 'foobar');
+        window.localStorage.setItem(currentUserIdentifier, JSON.stringify({foo: 'blah'}));
+
+        httpBackend.whenDELETE(apiUrl + 'logout').respond(200);
+        AuthenticationService.logout();
+
+        expect(window.localStorage.getItem(authTokenIdentifier)).toBe('foobar');
+        expect(window.localStorage.getItem(currentUserIdentifier)).toBe(JSON.stringify({foo: 'blah'}));
+
+        httpBackend.flush();
+      });
+    });
+
+    describe('on success', function(){
       sharedLogoutBehavior(function () {
         httpBackend.whenDELETE(apiUrl + 'logout').respond(200);
         AuthenticationService.logout();
@@ -149,9 +164,9 @@ describe('AuthenticationService', function () {
       });
     });
 
-    describe('on failure', function () {
+    describe('on failure', function(){
       sharedLogoutBehavior(function () {
-        httpBackend.whenDELETE(apiUrl + 'logout').respond(400);
+        httpBackend.whenDELETE(apiUrl + 'logout').respond(500);
         AuthenticationService.logout();
         httpBackend.flush();
       });

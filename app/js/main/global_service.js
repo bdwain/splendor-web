@@ -1,4 +1,4 @@
-angular.module('splendor.services').factory('GlobalService', function () {
+angular.module('splendor.main').factory('GlobalService', function () {
   return {
     getApiLocation: function () {
       return 'http://localhost:3000/api/v1/';

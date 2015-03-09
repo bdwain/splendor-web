@@ -1,9 +1,11 @@
 var app = angular.module('splendor', [
   'ngRoute',
-  'splendor.directives',
-  'splendor.filters',
-  'splendor.services',
-  'splendor.controllers'
+  'ui.bootstrap',
+  'splendor.main',
+  'splendor.authentication',
+  'splendor.home',
+  'splendor.navbar',
+  'splendor.registration'
 ]);
 
 app.config(function ($routeProvider, $locationProvider) {

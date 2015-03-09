@@ -1,4 +1,4 @@
-angular.module('splendor.services').factory('AuthenticationService',
+angular.module('splendor.authentication').factory('AuthenticationService',
   function ($http, $q, $window, GlobalService) {
     var hasLoggedOut = false, //this is needed to prevent a race condition between a logout and the redirect back from the login page
       authTokenIdentifier = 'authToken',
@@ -49,7 +49,7 @@ angular.module('splendor.services').factory('AuthenticationService',
         var service = this;
 
         $http['delete'](GlobalService.getApiLocation() + 'logout')
-          ['finally'](function () {
+          ['finally'](function(){
             service.onLogout();
           });
       }
