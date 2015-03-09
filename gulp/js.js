@@ -11,7 +11,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var wrap = require('gulp-wrap');
 var ngAnnotate = require('gulp-ng-annotate');
 
-var srcFiles = ['app/js/**/module.js', 'app/js/**/*.js'];
+var srcFiles = ['app/modules/**/module.js', 'app/modules/**/*.js'];
 
 gulp.task('js:verify', ['js:test', 'js:hint']);
 
@@ -49,8 +49,8 @@ gulp.task('js:build:src:debug', function () {
 });
 
 gulp.task('js:build:partials-cache', function(){
-  return gulp.src(['app/partials/**/*.html'])
-    .pipe(templateCache({root: 'partials/',standalone: false, module: 'splendor'}))
+  return gulp.src(['app/modules/**/*.html'])
+    .pipe(templateCache({root: 'modules/',standalone: false, module: 'splendor'}))
     .pipe(concat('partials.js'))
     .pipe(uglify())
     .pipe(gulp.dest(global.asset_path));

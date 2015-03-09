@@ -5,7 +5,7 @@ var ejs = require("ejs");
 var argv = require('yargs').argv;
 
 function isSpecificFile(path){
-  return /^\/(assets|template|css|img|js|partials|resource)\/.*/.test(path);
+  return /^\/(assets|template|css|img|modules)\/.*/.test(path);
 }
 
 function onRequest(request, response) {

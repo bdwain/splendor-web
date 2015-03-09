@@ -11,15 +11,15 @@ var app = angular.module('splendor', [
 app.config(function ($routeProvider, $locationProvider) {
   $routeProvider.
     when('/', {
-      templateUrl: 'partials/home.html',
+      templateUrl: 'modules/home/home.html',
       controller: 'HomeCtrl'
     }).
     when('/login', {
-      templateUrl: 'partials/login.html',
+      templateUrl: 'modules/authentication/login.html',
       controller: 'LoginCtrl'
     }).
     when('/register', {
-      templateUrl: 'partials/registration.html',
+      templateUrl: 'modules/registration/registration.html',
       controller: 'RegistrationCtrl'
     }).
     otherwise({
