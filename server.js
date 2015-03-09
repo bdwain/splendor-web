@@ -12,7 +12,7 @@ function onRequest(request, response) {
   console.log("Received request: " + request.url);
     
   if(isSpecificFile(request.url)){
-    fs.readFile("app/" + request.url,function(error,data){
+    fs.readFile("app" + request.url,function(error,data){
       if(error){
         response.writeHead(404,{"Content-type":"text/plain"});
         response.end("Sorry the page was not found");
