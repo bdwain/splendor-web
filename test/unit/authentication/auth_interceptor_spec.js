@@ -11,12 +11,12 @@ describe('AuthInterceptor', function () {
       $provide.provider('AuthenticationService', MockAuthenticationServiceProvider);
     });
 
-    inject(function (_AuthenticationService_, _$http_, _$httpBackend_, _$location_, GlobalService) {
+    inject(function (_AuthenticationService_, _$http_, _$httpBackend_, _$location_, _apiUrl_) {
       AuthenticationService = _AuthenticationService_;
       $httpBackend = _$httpBackend_;
       $http = _$http_;
       $location = _$location_;
-      apiUrl = GlobalService.getApiLocation();
+      apiUrl = _apiUrl_;
     });
   });
 

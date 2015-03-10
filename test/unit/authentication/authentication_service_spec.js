@@ -23,10 +23,10 @@ describe('AuthenticationService', function () {
       password: 'password'
     };
 
-    inject(function (_AuthenticationService_, $httpBackend, GlobalService) {
+    inject(function (_AuthenticationService_, $httpBackend, _apiUrl_) {
       AuthenticationService = _AuthenticationService_;
       httpBackend = $httpBackend;
-      apiUrl = GlobalService.getApiLocation();
+      apiUrl = _apiUrl_;
     });
   });
 

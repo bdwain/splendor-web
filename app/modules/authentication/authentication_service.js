@@ -1,5 +1,5 @@
 angular.module('splendor.authentication').factory('AuthenticationService',
-  function ($http, $q, $window, GlobalService) {
+  function ($http, $q, $window, apiUrl) {
     var hasLoggedOut = false, //this is needed to prevent a race condition between a logout and the redirect back from the login page
       authTokenIdentifier = 'authToken',
       currentUserIdentifier = 'currentUser';
@@ -26,7 +26,7 @@ angular.module('splendor.authentication').factory('AuthenticationService',
 
         hasLoggedOut = false;
 
-        $http.post(GlobalService.getApiLocation() + 'login', {user: loginData})
+        $http.post(apiUrl + 'login', {user: loginData})
           .success(function (response) {
             $window.localStorage.setItem(authTokenIdentifier, response.auth_token);
             $window.localStorage.setItem(currentUserIdentifier, JSON.stringify(response.user));
@@ -48,7 +48,7 @@ angular.module('splendor.authentication').factory('AuthenticationService',
         hasLoggedOut = true;
         var service = this;
 
-        $http['delete'](GlobalService.getApiLocation() + 'logout')
+        $http['delete'](apiUrl + 'logout')
           ['finally'](function(){
             service.onLogout();
           });

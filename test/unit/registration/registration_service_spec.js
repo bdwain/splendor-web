@@ -11,10 +11,10 @@ describe('RegistrationService', function () {
       password: 'password'
     };
 
-    inject(function (_RegistrationService_, $httpBackend, GlobalService) {
+    inject(function (_RegistrationService_, $httpBackend, _apiUrl_) {
       RegistrationService = _RegistrationService_;
       httpBackend = $httpBackend;
-      apiUrl = GlobalService.getApiLocation();
+      apiUrl = _apiUrl_;
     });
   });
 

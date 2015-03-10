@@ -12,7 +12,7 @@ fs.readdirSync(__dirname + '/gulp').forEach(function (module) {
   require(__dirname + '/gulp/' + module);
 });
 
-gulp.task('clean', 'Clean assets and dist', function (cb) {
+gulp.task('clean', 'Clean assets and dist', ['js:clean'], function (cb) {
   del([global.asset_path, global.dist_path], cb);
 });
 

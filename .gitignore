@@ -9,3 +9,4 @@ tmp
 dist/
 *.css.map
 build
+app/modules/config/api_url.js

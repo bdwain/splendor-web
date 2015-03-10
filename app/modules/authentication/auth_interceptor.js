@@ -1,8 +1,7 @@
 angular.module('splendor.authentication').factory('AuthInterceptor',
-  function ($window, $q, $location, $injector) {
+  function ($window, $q, $location, $injector, apiUrl) {
     var isApiRequest = function (path) {
-      var GlobalService = $injector.get('GlobalService');
-      return path.indexOf(GlobalService.getApiLocation()) === 0;
+      return path.indexOf(apiUrl) === 0;
     };
 
     return {

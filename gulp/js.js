@@ -10,6 +10,9 @@ var stripDebug = require('gulp-strip-debug');
 var sourcemaps = require('gulp-sourcemaps');
 var wrap = require('gulp-wrap');
 var ngAnnotate = require('gulp-ng-annotate');
+var argv = require('yargs').argv;
+var gulpNgConfig = require('gulp-ng-config');
+var del = require('del');
 
 var srcFiles = ['app/modules/**/module.js', 'app/modules/**/*.js'];
 
@@ -35,7 +38,33 @@ gulp.task('js:build:deps:debug', function () {
     .pipe(gulp.dest(global.asset_path));
 });
 
-gulp.task('js:build:src:debug', function () {
+var configModuleDir = 'app/modules/config/';
+var apiUrlFileName = 'api_url.js';
+gulp.task('js:clean', function (cb) {
+  del(configModuleDir + apiUrlFileName, cb);
+});
+
+var apiUrl = argv.apiUrl || 'http://localhost:3000';
+gulp.task('js:require:apiurl', function(cb){ //this is so we can require the param for release builds but have a default value for debug
+  if(!argv.apiUrl){
+    throw "Error: --apiUrl parameter missing";
+  }
+  cb();
+});
+
+gulp.task('js:build:src:config', function(){
+  return gulp.src(apiUrlFileName + 'on') //switch from extension js to json. temporary hack until file isn't necessary
+    .pipe(gulpNgConfig('splendor.config', {
+        constants: {
+          apiUrl: apiUrl + '/api/v1/'
+        },
+        createModule: false
+      }))
+    .pipe(wrap('//NOTE: THIS FILE IS GENERATED AUTOMATICALLY AND IGNORED BY GIT. DON\'T MESS WITH IT.\n/*jshint ignore:start*/\n <%= contents %> /*jshint ignore:end*/'))
+    .pipe(gulp.dest(configModuleDir));
+});
+
+gulp.task('js:build:src:debug', ['js:build:src:config'], function () {
   return gulp.src(srcFiles)
     .pipe(plumber())
     .pipe(jshint())
@@ -64,7 +93,7 @@ gulp.task('js:build:template-cache', function(){
     .pipe(gulp.dest(global.asset_path));
 });
 
-gulp.task('js:build:src:release', ['js:build:partials-cache', 'js:build:template-cache', 'js:build:src:debug'], function () {
+gulp.task('js:build:src:release', ['js:require:apiurl', 'js:build:partials-cache', 'js:build:template-cache', 'js:build:src:debug'], function () {
   return gulp.src([global.asset_path + 'app.js', global.asset_path + 'partials.js', global.asset_path + 'templates.js'])
     .pipe(stripDebug())
     .pipe(uglify())
@@ -79,7 +108,7 @@ gulp.task('js:build:deps:release', ['js:build:deps:debug'], function () {
     .pipe(gulp.dest(global.asset_path));
 });
 
-gulp.task('js:test', function () {
+gulp.task('js:test', ['js:build:src:config'], function () {
   return gulp.src('blah') //need a fake file to get it to use the files from karma.conf.js
     .pipe(karma({
       configFile: 'test/karma.conf.js'
@@ -89,7 +118,7 @@ gulp.task('js:test', function () {
     });
 });
 
-gulp.task('js:watch:test', function () {
+gulp.task('js:watch:test', ['js:build:src:config'], function () {
   return gulp.src('blah') //need a fake file to get it to use the files from karma.conf.js
     .pipe(karma({
       configFile: 'test/karma.conf.js',
@@ -97,7 +126,7 @@ gulp.task('js:watch:test', function () {
     }));
 });
 
-gulp.task('js:watch:test:debug', function () {
+gulp.task('js:watch:test:debug', ['js:build:src:config'], function () {
   return gulp.src('blah') //need a fake file to get it to use the files from karma.conf.js
     .pipe(karma({
       configFile: 'test/karma.conf.js',
