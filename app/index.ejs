@@ -13,8 +13,12 @@
 </head>
 
 <body>
-  <div ng-controller="NavbarCtrl" ng-include="'modules/navbar/navbar.html'"></div>
-  <div class="container" ng-view></div>
+  <div class="page-wrapper">
+    <div ng-controller="NavbarCtrl" ng-include="'modules/navbar/navbar.html'"></div>
+    <div class="content-wrapper">
+      <div class="container" ng-view autoscroll></div>
+    </div>
+  </div>
 
   <script type="text/javascript" src="<%= manifest['dependencies.js'] %>"></script>
   <script type="text/javascript" src="<%= manifest['app.js'] %>"></script>

@@ -2,3 +2,13 @@ body{
   padding-top: 50px;
   background-color: #eee;
 }
+
+[ng-click],
+[data-ng-click],
+[x-ng-click]{
+  cursor: pointer;
+}
+
+.content-wrapper{
+  padding-top: 10px;
+}
