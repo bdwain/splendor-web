@@ -4,21 +4,21 @@ describe('RegistrationCtrl', function () {
   beforeEach(module('splendor.user.registration'));
   beforeEach(module('splendor.test.mocks'));
 
-  var $scope, RegistrationService, AuthenticationService, $location;
+  var $scope, RegistrationService, AuthenticationService, $location, $q;
 
   beforeEach(function () {
-    module(function ($provide, MockAuthenticationServiceProvider, MockRegistrationServiceProvider) {
+    module(function ($provide, MockAuthenticationServiceProvider) {
       $provide.provider('AuthenticationService', MockAuthenticationServiceProvider);
-      $provide.provider('RegistrationService', MockRegistrationServiceProvider);
     });
 
-    inject(function (CtrlTestRootScope, $controller, _AuthenticationService_, _RegistrationService_, _$location_) {
+    inject(function (CtrlTestRootScope, $controller, _AuthenticationService_, _RegistrationService_, _$location_, _$q_) {
       $scope = CtrlTestRootScope.$new();
       AuthenticationService = _AuthenticationService_;
       RegistrationService = _RegistrationService_;
       $location = _$location_;
+      $q = _$q_;
 
-      var controller = $controller('RegistrationCtrl', {
+      $controller('RegistrationCtrl', {
         '$scope': $scope
       });
     });
@@ -69,8 +69,9 @@ describe('RegistrationCtrl', function () {
       });
 
       it('shouldn\'t call registrationservice.register', function(){
+        spyOn(RegistrationService, 'register').and.returnValue($q.defer().promise);
         $scope.register();
-        expect(RegistrationService.registerCtr).toBe(0);
+        expect(RegistrationService.register).not.toHaveBeenCalled();
       });
 
       it('should set success to false and the proper error message ', function(){
@@ -83,31 +84,36 @@ describe('RegistrationCtrl', function () {
     });
 
     describe('when the password and confirmation do match', function(){
+      var deferred;
       beforeEach(function(){
         $scope.registrationData.password = 'foo';
         $scope.passwordConfirmation = 'foo';
+
+        deferred = $q.defer();
+        spyOn(RegistrationService, 'register').and.returnValue(deferred.promise);
       });
 
       it('should call RegistrationService.register and pass in scope.registrationData', function () {
         $scope.register();
-        expect(RegistrationService.registerCtr).toBe(1);
-        expect(RegistrationService.registerData).toBe($scope.registrationData);
+        expect(RegistrationService.register).toHaveBeenCalledWith($scope.registrationData);
       });
 
       it('should set success to true and a proper message on success', function () {
-        RegistrationService.registerSuccess = true;
+        var msg = 'msg';
+        deferred.resolve(msg);
         $scope.register();
         $scope.$digest();
         expect($scope.success).toBe(true);
-        expect($scope.message).toBe('Please check your email to confirm your account.');
+        expect($scope.message).toBe(msg);
       });
 
       it('should set success to false and set message to the promise rejection string on error', function () {
-        RegistrationService.registerSuccess = false;
+        var err = 'errors';
+        deferred.reject(err);
         $scope.register();
         $scope.$digest();
         expect($scope.success).toBe(false);
-        expect($scope.message).toBe('error');
+        expect($scope.message).toBe(err);
       });
     });
   });

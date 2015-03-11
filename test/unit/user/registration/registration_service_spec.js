@@ -24,27 +24,24 @@ describe('RegistrationService', function () {
   });
 
   describe('register', function(){
-    it('post the registration data', function () {
-      var registrationData = {
-        email: 'email',
-        password: 'password'
-      }
+    it('should post the registration data', function () {
+      httpBackend.expectPOST(apiUrl + 'register', {user: registrationData}).respond(200, {message: 'foo'});
+      RegistrationService.register(registrationData);
+      httpBackend.flush();
+    });
+
+    it('should resolve the promise with the message on success', function(){
       var result = {message: 'foo'};
-      httpBackend.expectPOST(apiUrl + 'register', {user: registrationData}).respond(200, result);
+      httpBackend.whenPOST(apiUrl + 'register', {user: registrationData}).respond(200, result);
       RegistrationService.register(registrationData).then(function(response){
         expect(response).toBe(result.message);
       });
       httpBackend.flush();
     });
 
-    it('should pass along an error', function () {
-      var registrationData = {
-        email: 'email',
-        password: 'password'
-      }
+    it('should reject the promise with the error on error', function () {
       var err = {message: 'err'};
-
-      httpBackend.expectPOST(apiUrl + 'register', {user: registrationData}).respond(500, err);
+      httpBackend.whenPOST(apiUrl + 'register', {user: registrationData}).respond(500, err);
       RegistrationService.register(registrationData).then(function(){
         expect(true).toBe(false);
       }, function(error){
@@ -57,15 +54,21 @@ describe('RegistrationService', function () {
 
   describe('deleteAccount', function(){
     it('should make a DELETE request to delete_account', function () {
+      httpBackend.expectDELETE(apiUrl + 'delete_account').respond(200, {message: 'foo'});
+      RegistrationService.deleteAccount();
+      httpBackend.flush();
+    });
+
+    it('should resolve the promise with the message on success', function(){
       var result = {message: 'foo'};
-      httpBackend.expectDELETE(apiUrl + 'delete_account').respond(200, result);
+      httpBackend.whenDELETE(apiUrl + 'delete_account').respond(200, result);
       RegistrationService.deleteAccount().then(function(response){
         expect(response).toBe(result.message);
       });
       httpBackend.flush();
     });
 
-    it('should pass along an error', function () {
+    it('should reject the promise with the error on error', function () {
       var err = {message: 'err'};
       httpBackend.expectDELETE(apiUrl + 'delete_account').respond(500, err);
       RegistrationService.deleteAccount().then(function(){

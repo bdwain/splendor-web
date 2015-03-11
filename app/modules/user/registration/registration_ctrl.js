@@ -27,8 +27,8 @@ angular.module('splendor.user.registration').controller('RegistrationCtrl',
       }
 
       RegistrationService.register($scope.registrationData).then(
-        function () {
-          $scope.message = 'Please check your email to confirm your account.';
+        function (msg) {
+          $scope.message = msg;
           $scope.success = true;
         },
         function (err) {
