@@ -5,7 +5,8 @@ var app = angular.module('splendor', [
   'splendor.authentication',
   'splendor.home',
   'splendor.navbar',
-  'splendor.registration'
+  'splendor.registration',
+  'splendor.game.management'
 ]);
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -21,6 +22,10 @@ app.config(function ($routeProvider, $locationProvider) {
     when('/register', {
       templateUrl: 'modules/registration/registration.html',
       controller: 'RegistrationCtrl'
+    }).
+    when('/start_game', {
+      templateUrl: 'modules/game/management/start_game.html',
+      controller: 'StartGameCtrl'
     }).
     otherwise({
       redirectTo: '/'

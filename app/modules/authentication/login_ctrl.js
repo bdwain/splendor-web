@@ -27,4 +27,5 @@ angular.module('splendor.authentication').controller('LoginCtrl',
         }
       );
     };
-  });
+  }
+);

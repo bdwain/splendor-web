@@ -3,7 +3,7 @@
   <input type="email" class="form-control top_input" placeholder="Email" ng-model="loginData.email" required autofocus>
   <input type="password" class="form-control bottom_input" placeholder="Password" ng-model="loginData.password" required>
   <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()">Sign in</button>
-  <div ng-if="errorMessage != ''" class="alert alert-danger">
+  <div ng-if="errorMessage" class="alert alert-danger">
     {{errorMessage}}
   </div>
 </form>

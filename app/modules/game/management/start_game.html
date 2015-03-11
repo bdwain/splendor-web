@@ -1,0 +1,8 @@
+<div>
+  <div>Number of players: <select ng-model="numPlayers" ng-options="num for num in numPlayersChoices"></select></div>
+  <button class="btn btn-lg btn-primary" type="submit" ng-click="startGame()">Start</button>
+</div>
+
+<div ng-if="errorMessage" class="alert alert-danger">
+  {{errorMessage}}
+</div>
