@@ -2,7 +2,7 @@
 
 describe('StartGameCtrl', function () {
   beforeEach(module('splendor.game.management'));
-  beforeEach(module('splendor.test.mocks'));
+  beforeEach(module('splendor.test.controller.mocks'));
 
   var $scope, AuthenticationService, GameManagementService, $location, $q;
 

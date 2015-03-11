@@ -2,7 +2,7 @@
 
 describe('LoginCtrl', function () {
   beforeEach(module('splendor.user.authentication'));
-  beforeEach(module('splendor.test.mocks'));
+  beforeEach(module('splendor.test.controller.mocks'));
 
   var $scope, AuthenticationService, $location;
 

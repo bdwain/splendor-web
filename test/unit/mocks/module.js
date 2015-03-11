@@ -1,1 +1,1 @@
-angular.module('splendor.test.mocks', []);
+angular.module('splendor.test.controller.mocks', []);

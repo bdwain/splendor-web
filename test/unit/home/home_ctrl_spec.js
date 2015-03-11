@@ -2,7 +2,7 @@
 
 describe('HomeCtrl', function(){
   beforeEach(module('splendor.home'));
-  beforeEach(module('splendor.test.mocks'));
+  beforeEach(module('splendor.test.controller.mocks'));
   
   var $scope;
 

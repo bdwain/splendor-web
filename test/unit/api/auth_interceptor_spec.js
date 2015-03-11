@@ -1,8 +1,7 @@
 'use strict';
 
 describe('AuthInterceptor', function () {
-  beforeEach(module('splendor.test.mocks'));
-  beforeEach(module('splendor.user.authentication'));
+  beforeEach(module('splendor.api'));
 
   var AuthenticationService, $http, $httpBackend, $location, apiUrl;
 

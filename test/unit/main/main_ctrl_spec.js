@@ -2,7 +2,6 @@
 
 describe('MainCtrl', function () {
   beforeEach(module('splendor.main'));
-  beforeEach(module('splendor.test.mocks'));
 
   var $scope, $location, $rootScope;
 

@@ -2,7 +2,7 @@
 //all controllers other than MainCtrl
 'use strict';
 
-angular.module('splendor.test.mocks').factory('CtrlTestRootScope', function($rootScope){
+angular.module('splendor.test.controller.mocks').factory('CtrlTestRootScope', function($rootScope){
   var scope = $rootScope.$new();
   scope.page = {
     title: 'title'

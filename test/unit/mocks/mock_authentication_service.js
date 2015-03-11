@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('splendor.test.mocks').provider('MockAuthenticationService', function(){
+angular.module('splendor.user.authentication').provider('MockAuthenticationService', function(){
   this.$get = function($q){
     return {
       token: 'token',

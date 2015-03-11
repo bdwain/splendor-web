@@ -2,7 +2,7 @@
 
 describe('NavbarCtrl', function () {
   beforeEach(module('splendor.navbar'));
-  beforeEach(module('splendor.test.mocks'));
+  beforeEach(module('splendor.test.controller.mocks'));
   
   var $scope, $rootScope, AuthenticationService, $location, $q;
 
