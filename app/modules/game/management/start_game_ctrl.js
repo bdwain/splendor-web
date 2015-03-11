@@ -21,7 +21,7 @@ angular.module('splendor.game.management').controller('StartGameCtrl',
           $scope.errorMessage = err;
         }
       );
-    }
+    };
     $scope.init();
   }
 );
