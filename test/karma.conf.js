@@ -30,11 +30,6 @@ module.exports = function(config){
             'karma-phantomjs-launcher',
             'karma-chrome-launcher',
             'karma-jasmine'
-            ],
-
-    junitReporter : {
-      outputFile: 'test_out/unit.xml',
-      suite: 'unit'
-    }
+            ]
   });
 };
