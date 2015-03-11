@@ -36,7 +36,9 @@ gulp.task('package:build:index', ['package:rev'], function(){
     .pipe(gulp.dest(global.dist_path));
 });
 
-gulp.task('package:zip', ['package:copy:img', 'package:build:index'], function(){  
+gulp.task('package:build:all', 'Puts every deployable asset in the dist folder', ['package:build:index', 'package:copy:img']);
+
+gulp.task('package:zip', 'Zips up all deployable assets in the dist folder', ['package:build:all'], function(){  
   return gulp.src([global.dist_path + '**/*', '!' + global.dist_path + 'asset_manifest.json'])
     .pipe(zip('archive.zip'))
     .pipe(gulp.dest(global.dist_path));
