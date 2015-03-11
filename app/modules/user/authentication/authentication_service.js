@@ -1,4 +1,4 @@
-angular.module('splendor.authentication').factory('AuthenticationService',
+angular.module('splendor.user.authentication').factory('AuthenticationService',
   function ($http, $q, $window, apiUrl) {
     var hasLoggedOut = false, //this is needed to prevent a race condition between a logout and the redirect back from the login page
       authTokenIdentifier = 'authToken',

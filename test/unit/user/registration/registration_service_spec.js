@@ -1,7 +1,7 @@
 'use strict';
 
 describe('RegistrationService', function () {
-  beforeEach(module('splendor.registration'));
+  beforeEach(module('splendor.user.registration'));
 
   var RegistrationService, httpBackend, apiUrl, registrationData;
 

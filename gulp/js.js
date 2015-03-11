@@ -38,10 +38,10 @@ gulp.task('js:build:deps:debug', function () {
     .pipe(gulp.dest(global.asset_path));
 });
 
-var configModuleDir = 'app/modules/config/';
+var apiModuleDir = 'app/modules/api/';
 var apiUrlFileName = 'api_url.js';
 gulp.task('js:clean', function (cb) {
-  del(configModuleDir + apiUrlFileName, cb);
+  del(apiModuleDir + apiUrlFileName, cb);
 });
 
 var apiUrl = argv.apiUrl || 'http://localhost:3000';
@@ -52,19 +52,19 @@ gulp.task('js:require:apiurl', function(cb){ //this is so we can require the par
   cb();
 });
 
-gulp.task('js:build:src:config', function(){
+gulp.task('js:build:src:apiUrl', function(){
   return gulp.src(apiUrlFileName + 'on') //switch from extension js to json. temporary hack until file isn't necessary
-    .pipe(gulpNgConfig('splendor.config', {
+    .pipe(gulpNgConfig('splendor.api', {
         constants: {
           apiUrl: apiUrl + '/api/v1/'
         },
         createModule: false
       }))
     .pipe(wrap('//NOTE: THIS FILE IS GENERATED AUTOMATICALLY AND IGNORED BY GIT. DON\'T MESS WITH IT.\n/*jshint ignore:start*/\n <%= contents %> /*jshint ignore:end*/'))
-    .pipe(gulp.dest(configModuleDir));
+    .pipe(gulp.dest(apiModuleDir));
 });
 
-gulp.task('js:build:src:debug', ['js:build:src:config'], function () {
+gulp.task('js:build:src:debug', ['js:build:src:apiUrl'], function () {
   return gulp.src(srcFiles)
     .pipe(plumber())
     .pipe(jshint())
@@ -108,7 +108,7 @@ gulp.task('js:build:deps:release', ['js:build:deps:debug'], function () {
     .pipe(gulp.dest(global.asset_path));
 });
 
-gulp.task('js:test', ['js:build:src:config'], function () {
+gulp.task('js:test', ['js:build:src:apiUrl'], function () {
   return gulp.src('blah') //need a fake file to get it to use the files from karma.conf.js
     .pipe(karma({
       configFile: 'test/karma.conf.js'
@@ -118,7 +118,7 @@ gulp.task('js:test', ['js:build:src:config'], function () {
     });
 });
 
-gulp.task('js:watch:test', ['js:build:src:config'], function () {
+gulp.task('js:watch:test', ['js:build:src:apiUrl'], function () {
   return gulp.src('blah') //need a fake file to get it to use the files from karma.conf.js
     .pipe(karma({
       configFile: 'test/karma.conf.js',
@@ -126,7 +126,7 @@ gulp.task('js:watch:test', ['js:build:src:config'], function () {
     }));
 });
 
-gulp.task('js:watch:test:debug', ['js:build:src:config'], function () {
+gulp.task('js:watch:test:debug', ['js:build:src:apiUrl'], function () {
   return gulp.src('blah') //need a fake file to get it to use the files from karma.conf.js
     .pipe(karma({
       configFile: 'test/karma.conf.js',

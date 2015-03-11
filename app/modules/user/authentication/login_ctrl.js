@@ -1,4 +1,4 @@
-angular.module('splendor.authentication').controller('LoginCtrl',
+angular.module('splendor.user.authentication').controller('LoginCtrl',
   function ($scope, AuthenticationService, $location) {
     $scope.init = function () {
       if (AuthenticationService.isLoggedIn()) {

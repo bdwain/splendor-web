@@ -1,1 +1,0 @@
-angular.module('splendor.registration', ['splendor.authentication', 'splendor.main', 'splendor.config']);

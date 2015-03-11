@@ -1,4 +1,4 @@
-angular.module('splendor.registration').factory('RegistrationService',
+angular.module('splendor.user.registration').factory('RegistrationService',
   function ($http, $q, apiUrl) {
     return {
       register: function (registrationData) {

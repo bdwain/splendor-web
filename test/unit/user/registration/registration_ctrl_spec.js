@@ -1,7 +1,7 @@
 'use strict';
 
 describe('RegistrationCtrl', function () {
-  beforeEach(module('splendor.registration'));
+  beforeEach(module('splendor.user.registration'));
   beforeEach(module('splendor.test.mocks'));
 
   var $scope, RegistrationService, AuthenticationService, $location;

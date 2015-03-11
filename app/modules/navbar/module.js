@@ -1,1 +1,1 @@
-angular.module('splendor.navbar', ['splendor.authentication']);
+angular.module('splendor.navbar', ['splendor.user.authentication']);

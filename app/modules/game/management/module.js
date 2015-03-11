@@ -1,1 +1,1 @@
-angular.module('splendor.game.management', ['splendor.config', 'splendor.authentication']);
+angular.module('splendor.game.management', ['splendor.api', 'splendor.user.authentication']);

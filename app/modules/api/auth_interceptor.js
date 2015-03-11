@@ -1,4 +1,4 @@
-angular.module('splendor.authentication').factory('AuthInterceptor',
+angular.module('splendor.api').factory('AuthInterceptor',
   function ($window, $q, $location, $injector, apiUrl) {
     var isApiRequest = function (path) {
       return path.indexOf(apiUrl) === 0;

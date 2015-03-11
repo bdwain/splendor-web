@@ -1,7 +1,7 @@
 'use strict';
 
 describe('AuthenticationService', function () {
-  beforeEach(module('splendor.authentication'));
+  beforeEach(module('splendor.user.authentication'));
 
   var AuthenticationService, httpBackend, apiUrl, authResponse, loginData, authTokenIdentifier, currentUserIdentifier;
 

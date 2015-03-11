@@ -1,0 +1,1 @@
+angular.module('splendor.user.authentication', ['splendor.main', 'splendor.api']);

@@ -2,7 +2,7 @@
 
 describe('AuthInterceptor', function () {
   beforeEach(module('splendor.test.mocks'));
-  beforeEach(module('splendor.authentication'));
+  beforeEach(module('splendor.user.authentication'));
 
   var AuthenticationService, $http, $httpBackend, $location, apiUrl;
 

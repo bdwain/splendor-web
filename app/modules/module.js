@@ -2,11 +2,12 @@ var app = angular.module('splendor', [
   'ngRoute',
   'ui.bootstrap',
   'splendor.main',
-  'splendor.authentication',
+  'splendor.user.authentication',
   'splendor.home',
   'splendor.navbar',
-  'splendor.registration',
-  'splendor.game.management'
+  'splendor.user.registration',
+  'splendor.game.management',
+  'splendor.api'
 ]);
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -16,11 +17,11 @@ app.config(function ($routeProvider, $locationProvider) {
       controller: 'HomeCtrl'
     }).
     when('/login', {
-      templateUrl: 'modules/authentication/login.html',
+      templateUrl: 'modules/user/authentication/login.html',
       controller: 'LoginCtrl'
     }).
     when('/register', {
-      templateUrl: 'modules/registration/registration.html',
+      templateUrl: 'modules/user/registration/registration.html',
       controller: 'RegistrationCtrl'
     }).
     when('/start_game', {

@@ -1,7 +1,7 @@
 'use strict';
 
 describe('LoginCtrl', function () {
-  beforeEach(module('splendor.authentication'));
+  beforeEach(module('splendor.user.authentication'));
   beforeEach(module('splendor.test.mocks'));
 
   var $scope, AuthenticationService, $location;
@@ -16,7 +16,7 @@ describe('LoginCtrl', function () {
       AuthenticationService = _AuthenticationService_;
       $location = _$location_;
 
-      var controller = $controller('LoginCtrl', {
+      $controller('LoginCtrl', {
         '$scope': $scope
       });
     });
