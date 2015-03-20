@@ -7,6 +7,7 @@ var app = angular.module('splendor', [
   'splendor.navbar',
   'splendor.user.registration',
   'splendor.game.management',
+  'splendor.game.play',
   'splendor.api'
 ]);
 
@@ -28,6 +29,14 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: 'modules/game/management/start_game.html',
       controller: 'StartGameCtrl'
     }).
+    when('/games/:game_id', {
+        templateUrl: 'modules/game/play/game.html',
+        controller: 'GameCtrl',
+        resolve: {
+          gameId: function ($route) {
+            return $route.current.params.game_id;
+          }
+        }}).
     otherwise({
       redirectTo: '/'
     });
