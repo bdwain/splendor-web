@@ -13,6 +13,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 var argv = require('yargs').argv;
 var gulpNgConfig = require('gulp-ng-config');
 var del = require('del');
+var mainBowerFiles = require('main-bower-files');
 
 var srcFiles = ['app/modules/**/module.js', 'app/modules/**/*.js'];
 
@@ -28,9 +29,7 @@ gulp.task('js:watch', ['js:build:debug', 'js:watch:build', 'js:watch:test']);
 gulp.task('js:watch:debug', ['js:build:debug', 'js:watch:build', 'js:watch:test:debug']);
 
 gulp.task('js:build:deps:debug', function () {
-  var excluded = ['!**/*lodash.min*', '!**/*lodash.underscore*', '!**/*ui-bootstrap-tpls*', '!' + global.bower_path + 'moment/min/*locales*'];
-  var deps = [global.bower_path + 'moment/**/*.min.js', global.bower_path + 'angular/angular.min.js', global.bower_path + '**/*.min.js', 'app/lib/**/*.min.js'].concat(excluded);
-  return gulp.src(deps)
+  return gulp.src(mainBowerFiles('**/*.js', {paths: {bowerDirectory: global.bower_path}}))
     .pipe(plumber())
     .pipe(sourcemaps.init())
       .pipe(concat('dependencies.js'))

@@ -3,10 +3,12 @@ var cssMin = require('gulp-minify-css');
 var concat = require('gulp-concat');
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
+var mainBowerFiles = require('main-bower-files');
 
 gulp.task('css:build:debug', function () {
-  var cssFiles = [global.bower_path + '**/*.css', 'app/css/*.css', '!**/*.min.css'];
-  return gulp.src(cssFiles)
+  var files = mainBowerFiles('**/*.css', {paths: {bowerDirectory: global.bower_path}});
+  files = files.concat(['app/css/**/*.css', 'app/modules/**/*.css']);
+  return gulp.src(files)
     .pipe(plumber())
     .pipe(sourcemaps.init())
       .pipe(concat('app.css'))

@@ -1,24 +1,17 @@
+var mainBowerFiles = require('main-bower-files');
 module.exports = function(config){
+  var files = mainBowerFiles('**/*.js', {paths: {bowerDirectory: 'app/bower_components'}});
+  files = files.concat([
+    'app/modules/**/module.js',
+    'app/modules/**/*.js',
+    'test/unit/mocks/module.js',
+    'test/unit/mocks/**/*.js',
+    'test/unit/**/*.js'
+  ]);
+
   config.set({
     basePath : '../',
-
-    files : [
-      'app/bower_components/angular/angular.js',
-      'app/bower_components/**/*.js',
-      'app/modules/**/module.js',
-      'app/modules/**/*.js',
-      'test/unit/mocks/module.js',
-      'test/unit/mocks/**/*.js',
-      'test/unit/**/*.js'
-    ],
-
-    exclude : [
-      'app/bower_components/**/*.min.js',
-      'app/bower_components/**/*lodash.js',
-      'app/bower_components/**/*lodash.underscore.js',
-      'app/bower_components/**/*ui-bootstrap-tpls*',
-      'app/bower_components/moment/*/**'
-    ],
+    files : files,
 
     autoWatch : true,
 
