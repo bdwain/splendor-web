@@ -11,7 +11,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var wrap = require('gulp-wrap');
 var ngAnnotate = require('gulp-ng-annotate');
 var argv = require('yargs').argv;
-var gulpNgConfig = require('gulp-ng-config');
+var ngConfig = require('ng-config');
+var fs = require('fs');
 var del = require('del');
 var mainBowerFiles = require('main-bower-files');
 
@@ -37,10 +38,9 @@ gulp.task('js:build:deps:debug', function () {
     .pipe(gulp.dest(global.asset_path));
 });
 
-var apiModuleDir = 'app/modules/api/';
-var apiUrlFileName = 'api_url.js';
+var apiFile = 'app/modules/api/api_url.js';
 gulp.task('js:clean', function (cb) {
-  del(apiModuleDir + apiUrlFileName, cb);
+  del(apiFile, cb);
 });
 
 var apiUrl = argv.apiUrl || 'http://localhost:3000';
@@ -51,16 +51,16 @@ gulp.task('js:require:apiurl', function(cb){ //this is so we can require the par
   cb();
 });
 
-gulp.task('js:build:src:apiUrl', function(){
-  return gulp.src(apiUrlFileName + 'on') //switch from extension js to json. temporary hack until file isn't necessary
-    .pipe(gulpNgConfig('splendor.api', {
-        constants: {
-          apiUrl: apiUrl + '/api/v1/'
-        },
-        createModule: false
-      }))
-    .pipe(wrap('//NOTE: THIS FILE IS GENERATED AUTOMATICALLY AND IGNORED BY GIT. DON\'T MESS WITH IT.\n/*jshint ignore:start*/\n <%= contents %> /*jshint ignore:end*/'))
-    .pipe(gulp.dest(apiModuleDir));
+gulp.task('js:build:src:apiUrl', function(cb){
+  var module = ngConfig({
+    constants: {
+      apiUrl: apiUrl + '/api/v1/'
+    },
+    module: 'splendor.api',
+    template: 'resources/ngconfig.tpl'
+  });
+
+  fs.writeFile(apiFile, module, cb);
 });
 
 gulp.task('js:build:src:debug', ['js:build:src:apiUrl'], function () {
